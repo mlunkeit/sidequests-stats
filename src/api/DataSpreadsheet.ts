@@ -34,4 +34,13 @@ export class DataSpreadsheet
                 }
             });
     }
+
+    async fetchPlayerByName(name: string)
+    {
+        return this.fetchPlayerList()
+            .then(players => {
+                if (players)
+                    return players.find(player => player.getName() === name);
+            });
+    }
 }

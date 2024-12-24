@@ -1,10 +1,30 @@
-interface PageProps {
+import {JSX} from "react";
+import {Player} from "@/api/Player";
+import GoogleApi from "@/api/GoogleApi";
+import {redirect} from "next/navigation";
+
+const googleApi = GoogleApi.getInstance();
+const datasheet = googleApi.getDataSpreadsheet();
+
+interface PageProps
+{
     params: { name: string };
 }
 
-export default async function StatsPage({params}: PageProps): JSX.Element
+function PlayerStats({player}: {player: Player}): JSX.Element
+{
+    return (
+        <div>
+            <h1>{player.getPoints()} Points</h1>
+        </div>
+    );
+}
+
+export default async function StatsPage({params}: PageProps): Promise<JSX.Element>
 {
     const {name} = await params;
+
+    const player = await datasheet.fetchPlayerByName(name);
 
     return (
     <div
@@ -17,13 +37,10 @@ export default async function StatsPage({params}: PageProps): JSX.Element
 
         {/* Main Content */}
         <main className="flex flex-col items-center sm:items-start w-full max-w-lg">
-
+            {player ? (<PlayerStats player={player}/>) : redirect("/")}
         </main>
 
-        {/* Footer (optional) */}
-        <footer className="text-sm text-gray-500">
-            © 2024 - 2025, Malte Lunkeit
-        </footer>
+        <footer></footer>
     </div>
     );
 }

@@ -58,10 +58,7 @@ export default function Home() {
                 <ProgressBarTable/>
             </main>
 
-            {/* Footer (optional) */}
-            <footer className="text-sm text-gray-500">
-                © 2024 - 2025, Malte Lunkeit
-            </footer>
+            <footer></footer>
         </div>
     );
 }

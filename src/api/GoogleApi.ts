@@ -4,13 +4,20 @@ import dotenv from 'dotenv';
 import {DataSpreadsheet} from "@/api/DataSpreadsheet";
 dotenv.config();
 
+/**
+ * Represents the interface to Google.
+ * This class is supposed to only have one single object.
+ */
 export default class GoogleApi
 {
-    static instance: GoogleApi;
+    /**
+     * The singleton object of the {@link GoogleApi} class.
+     */
+    private static instance: GoogleApi;
 
     private readonly sheets: sheets_v4.Sheets;
 
-    constructor()
+    private constructor()
     {
         process.env.GOOGLE_APPLICATION_CREDENTIALS = path.resolve("./google-credentials.json");
 
@@ -21,6 +28,9 @@ export default class GoogleApi
         this.sheets = google.sheets({version: 'v4', auth});
     }
 
+    /**
+     * Returns the instance of the {@link DataSpreadsheet} where the quest data is stored.
+     */
     getDataSpreadsheet(): DataSpreadsheet
     {
         const spreadsheetId = process.env.GOOGLE_SPREADSHEET_ID;
@@ -31,6 +41,9 @@ export default class GoogleApi
         return new DataSpreadsheet(spreadsheetId, this.sheets);
     }
 
+    /**
+     * Returns the singleton object of the {@link GoogleApi} or creates a new if none is present.
+     */
     static getInstance(): GoogleApi
     {
         if (!GoogleApi.instance)
