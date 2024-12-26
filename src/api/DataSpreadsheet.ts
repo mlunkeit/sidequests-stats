@@ -83,7 +83,7 @@ export class DataSpreadsheet
 
     private async fetchMultiplayerQuests(): Promise<void>
     {
-        const range = "Multiplayer Side Quests!A2:F"
+
     }
 
     async fetchAllQuests()

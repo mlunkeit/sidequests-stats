@@ -7,9 +7,9 @@ import Quest from "@/api/Quest";
 const googleApi = GoogleApi.getInstance();
 const datasheet = googleApi.getDataSpreadsheet();
 
-interface PageProps
+export interface PageProps
 {
-    params: { name: string };
+    params: Promise<{ name: string }>;
 }
 
 function PointDisplay({points}: {points: number})
@@ -25,7 +25,7 @@ function PointDisplay({points}: {points: number})
 function QuestDisplay({quest}: {quest: Quest}): JSX.Element
 {
     return (
-        <div className={"quest-container bg-gray-100 shadow rounded hover:shadow-lg transition-all"}
+        <div className={"quest-container border-2 shadow rounded hover:shadow-lg transition-all"}
              style={{margin: "10px", padding: "10px", cursor: "default"}}>
             <h1 className={"font-bold"}>{quest.title}</h1>
             <p>{quest.description}</p>
@@ -36,8 +36,8 @@ function QuestDisplay({quest}: {quest: Quest}): JSX.Element
 function Divider({title}: {title: string}): JSX.Element
 {
     return (
-        <div className={"divider bg-gray-600 relative h-1 m-10"}>
-            <label className={"absolute left-1/2 top-1/2 bg-white p-1"} style={{transform: "translate(-50%, -50%)"}}>{title}</label>
+        <div className={"divider relative h-1 m-10"} style={{backgroundColor: "var(--foreground)"}}>
+            <label className={"absolute left-1/2 top-1/2 p-1"} style={{transform: "translate(-50%, -50%)", backgroundColor: "var(--background)"}}>{title}</label>
         </div>
     )
 }
