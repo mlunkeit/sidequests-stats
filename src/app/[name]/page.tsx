@@ -12,24 +12,43 @@ interface PageProps
     params: { name: string };
 }
 
+function PointDisplay({points}: {points: number})
+{
+    return (
+        <div className="relative mb-20">
+            <h1 className={"text-violet-700 font-bold text-3xl absolute left-1/2 top-1/2"}
+                style={{transform: "translate(-50%, -50%)"}}>{points} Points</h1>
+        </div>
+    )
+}
+
 function QuestDisplay({quest}: {quest: Quest}): JSX.Element
 {
     return (
-        <div>
-            <h1>{quest.title}</h1>
+        <div className={"quest-container bg-gray-100 shadow rounded hover:shadow-lg transition-all"}
+             style={{margin: "10px", padding: "10px", cursor: "default"}}>
+            <h1 className={"font-bold"}>{quest.title}</h1>
             <p>{quest.description}</p>
         </div>
     );
 }
 
-async function PlayerStats({player}: {player: Player}): Promise<JSX.Element>
+function Divider({title}: {title: string}): JSX.Element
 {
+    return (
+        <div className={"divider bg-gray-600 relative h-1 m-10"}>
+            <label className={"absolute left-1/2 top-1/2 bg-white p-1"} style={{transform: "translate(-50%, -50%)"}}>{title}</label>
+        </div>
+    )
+}
+
+async function PlayerStats({player}: { player: Player }): Promise<JSX.Element> {
     const quests = await player.fetchActiveQuests();
 
     return (
         <div>
-            <h1>{player.points} Points</h1>
-            <h1>Active quests:</h1>
+            <PointDisplay points={player.points}/>
+            <Divider title={"Active Quests"} />
             <div>
                 {quests.map(quest => (
                     <QuestDisplay key={quest.id} quest={quest}/>
