@@ -29,16 +29,16 @@ async function ProgressBarTable() {
     if(!players)
         return (<div>No data :(</div>);
 
-    let highestScore = Math.max(...players.map(player => player.getPoints()));
+    let highestScore = Math.max(...players.map(player => player.points));
 
     if(highestScore === 0)
         highestScore = 1;
 
     return (
         <div style={{ width: "100%", display: "flex", flexDirection: "column", gap: "8px" }}>
-            {(players.sort((a, b) => b.getPoints() - a.getPoints()).map(player => (
-                <ProgressBar name={player.getName()} progress={player.getPoints()} max={highestScore} />
-            )))}
+            {(players.sort((a, b) => b.points - a.points).map(((player, index) => (
+                <ProgressBar key={index} name={player.name} progress={player.points} max={highestScore} />
+            ))))}
         </div>
     );
 }

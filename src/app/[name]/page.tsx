@@ -2,6 +2,7 @@ import {JSX} from "react";
 import {Player} from "@/api/Player";
 import GoogleApi from "@/api/GoogleApi";
 import {redirect} from "next/navigation";
+import Quest from "@/api/Quest";
 
 const googleApi = GoogleApi.getInstance();
 const datasheet = googleApi.getDataSpreadsheet();
@@ -11,11 +12,29 @@ interface PageProps
     params: { name: string };
 }
 
-function PlayerStats({player}: {player: Player}): JSX.Element
+function QuestDisplay({quest}: {quest: Quest}): JSX.Element
 {
     return (
         <div>
-            <h1>{player.getPoints()} Points</h1>
+            <h1>{quest.title}</h1>
+            <p>{quest.description}</p>
+        </div>
+    );
+}
+
+async function PlayerStats({player}: {player: Player}): Promise<JSX.Element>
+{
+    const quests = await player.fetchActiveQuests();
+
+    return (
+        <div>
+            <h1>{player.points} Points</h1>
+            <h1>Active quests:</h1>
+            <div>
+                {quests.map(quest => (
+                    <QuestDisplay key={quest.id} quest={quest}/>
+                ))}
+            </div>
         </div>
     );
 }
