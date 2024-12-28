@@ -1,5 +1,7 @@
 import GoogleApi from "@/api/GoogleApi";
 
+export const revalidate = 0;
+
 const googleApi = GoogleApi.getInstance();
 const datasheet = googleApi.getDataSpreadsheet();
 
