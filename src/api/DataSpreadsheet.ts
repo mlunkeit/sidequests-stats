@@ -17,7 +17,7 @@ export class DataSpreadsheet
         this.sheets = sheets;
     }
 
-    async fetchPlayerList()
+    async fetchPlayerList(): Promise<Player[] | undefined>
     {
         const range = "Points!A2:D";
 

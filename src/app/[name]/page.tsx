@@ -46,7 +46,7 @@ async function PlayerStats({player}: { player: Player }): Promise<JSX.Element> {
     const quests = await player.fetchActiveQuests();
 
     return (
-        <div>
+        <div className={"w-full"}>
             <PointDisplay points={player.points}/>
             <Divider title={"Active Quests"} />
             <div>
