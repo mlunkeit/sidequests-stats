@@ -27,7 +27,7 @@ function QuestDisplay({quest}: {quest: Quest}): JSX.Element
     return (
         <div className={"quest-container border-2 shadow rounded hover:shadow-lg transition-all"}
              style={{margin: "10px", padding: "10px", cursor: "default"}}>
-            <h1 className={"font-bold"}>{quest.title}</h1>
+            <h1 className={"font-bold"}>{quest.title} <span style={{color: "var(--fg-secondary)"}}>+{quest.points}</span></h1>
             <p>{quest.description}</p>
         </div>
     );
